@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>Index</title>
+      {% load static %}
+      <!-- The line above tells Django to be ready to listen for static files -->
+      <link rel="stylesheet" href="{% static 'ourApp/css/main.css' %}">
+      <!-- Put the static files in the static folder inside your app.  
+           Django collects files within all static folders and puts them within a single folder -->    
+    </head>
+    <body>
+        <h3>You are about to DELETE all data in User and Quote DB</h3>
+        <h3>Think 7 times before you proceed, no options to undo</h3>
+        <h3>if not sure better select to LOG OFF</h3>
+
+        <form class="new_quote" action="/logout" method="POST">
+          {% csrf_token %}
+          <p></p>
+            <input class="nice"type="submit" value="Submit">
+            <p></p>         
+            <input class="nice"type="submit" value="Log Out">    
+        </form>
+        <form action="/favorites" method="POST">
+
+        <div class="right">
+        <form action="/clearance">
+            {% csrf_token %} 
+            <input class="nice"type="submit" value="Submit">
+            <p></p>         
+            <input class="nice"type="submit" value="Total DB Clearance"><br>
+        </form> 
+        </div>
+          
+    </body>
+  </html>
+  
+  
+    
+    

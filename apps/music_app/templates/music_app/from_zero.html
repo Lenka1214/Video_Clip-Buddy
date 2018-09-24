@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+  <html>
+    <style>
+        .nice{
+        color: aqua;
+        background-color: blueviolet;   
+        }
+        .old{
+        display: inline-block;
+        vertical-align: top;
+        width: 300px; 
+        background-color: aquamarine;
+        }
+        .new{
+        display: inline-block;
+        vertical-align: top; 
+        width:300px;  
+        background-color: bisque;
+        }
+    </style> 
+    <head>
+      <meta charset="utf-8">
+      <title>Index</title>
+      {% load static %}
+      <!-- The line above tells Django to be ready to listen for static files -->
+      <link rel="stylesheet" href="{% static 'ourApp/css/main.css' %}">
+      <!-- Put the static files in the static folder inside your app.  
+           Django collects files within all static folders and puts them within a single folder -->    
+    </head>
+
+    <body>
+        <h3>Welcome {{nick_name}}! :</h3>
+        <p>You are starting with empty DB and need to post the 1st message</p>
+        <p>Current Date / Time : {{time}}</p>
+        <p></p>
+
+        <form class="old" action="/from_zero" method='POST'>
+            {% csrf_token %}
+                <h3>Enter The First Quote of your DB (author's full name and quote itself) below :</h3>
+                <label for="quoted_by">Quoted by (full name):</label>
+                <input type="text" name="quoted_by">
+                <p></p>
+                <label for="text">Quote:</label>
+                <textarea name="text"></textarea>
+                <p></p>
+                <input class="nice" type='submit' value='Submit'>
+            </form>
+
+    </body>
+  </html>
+  
+  
+    
+    

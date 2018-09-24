@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<style>
+		/* .outer{
+		width: 405px;
+		border:blue;
+		border-style: dashed;
+		border-width: 3px
+		}
+		.nice{
+		color:blue;
+		background-color:gainsboro;
+		width: 400px;  
+		} */
+		.nice{
+        color: aqua;
+        background-color: blueviolet;
+		font-size: 25px;
+		display: inline-block;
+		vertical-align: top; 
+		margin-left: 300px; 
+		margin-top: 20px;
+        }
+		.welcome{
+		display: inline-block;
+		vertical-align: top;
+		width: 300px;
+		color:blue;   	
+		}
+		.other_quotes{
+		vertical-align: top;
+		display:inline-block;
+		width: 350px; 
+		/* background-color: aquamarine; */
+		color:blue;
+		margin-top: 30px;
+		}
+		.favor_quotes{
+		display: inline-block;
+		vertical-align: top; 
+		width:350px;  
+		/* background-color: aquamarine; */
+		color:blue;
+		margin-left: 70px;
+		margin-top: 30px;
+		}
+		.head1{
+			width: 100px;
+			vertical-align: top;
+			display: inline-block;
+			height: 20px;
+			color:blue;		
+		}
+		.head2{
+			width: 100px;
+			height: 20px;
+			vertical-align: top;
+			display: inline-block;
+			margin-left: 120px;
+			color:blue;
+		}
+		.add{
+			color:blue;
+
+		}	
+</style>
+<head>
+	<title>Quotes</title>
+</head>
+<body>
+	<div>
+		<h1 class="welcome">Welcome, {{nick_name}}!</h1>
+		<a class="nice" href="/logout">Logout</a>
+	</div>
+
+	<!-- Current User Other Quotes -->
+	<div>
+		<h3 class="head1" style="border:1px blue dashed; width:300px">All Clips:</h3>
+		<h3 class="head2" style="border:1px blue dashed; width:300px">Favorite Clips:</h3>		
+	</div>
+	<div class="other_quotes" id="quotes" style="overflow:scroll; height:500px;">
+		{% for quote in all_others %}
+			<div class = "one_quote" style="border: 1px blue dashed; width: 350px">
+				<p><a href="{{quote.text}}">{{quote.quoted_by}}</a></p>
+
+				<p>posted by:<a href="/user_selected/{{quote.created_by.id}}">{{quote.created_by.full_name}}</a></p>
+				<a href="/add_favorite/{{quote.id}}">Add to Favorites</a>
+			</div>
+		{% endfor %}
+	</div>
+
+<!-- Current User Favorite Quotes -->
+
+	<div class="favor_quotes" id="quotes" style="overflow:scroll; height:500px;">
+	  {% for favorite in favorites %}
+	  		<div class="one_quote" style="border: 1px blue dashed; width: 350px">
+			    <p><a href="{{favorite.text}}">{{favorite.quoted_by}}</a></p>
+
+				   <p>posted by:<a href="/user_selected/{{favorite.created_by.id}}">{{favorite.created_by.full_name}}</a></p>
+			    <a href="/remove_favorite/{{favorite.id}}">Remove from Favorites</a>
+			</div>
+	  {% endfor %}
+	 </div>
+
+<!-- submit new quote: -->
+	<h3 class="add">Submit new Quote:</h3> 
+	<form action="/new_quote" method="post">
+	{% csrf_token %}
+		<label>Quoted By:</label>
+		<input type="text" name="quoted_by">
+		<label>Quote text:</label>
+		<textarea name="text"></textarea>
+		<input type="submit" value="Submit">
+	</form>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<style>
+        .outer{
+        width: 405px;
+        border:blue;
+        border-style: dashed;
+        border-width: 3px
+        }
+        .nice{
+        color:blue;
+        background-color:gainsboro;
+        width: 400px;  
+        }
+        .old{
+        display: inline-block;
+        vertical-align: top;
+        width: 200px; 
+        background-color: aquamarine;
+        }
+        .new{
+        display: inline-block;
+        vertical-align: top; 
+        width:200px;  
+        background-color: bisque;
+        }
+        .quality{
+            color:blue;
+        }
+</style>     
+<head>
+	<title>User</title>
+</head>
+<body>
+    <div class="outer">
+
+        <a class="new" href="/quotes">Dashboard</a>
+        <a class="old" href="/logout">Logout</a>
+        <h1 class="quality">Posts by {{user.full_name}} </h1>
+        <h3 class="quality">Count:{{user_posts | length}}</h3>
+        <div>
+            {% for quote in user_posts %}
+            <div class="nice">
+                <span style="color:blueviolet">{{quote.quoted_by}}:</span> 
+                {{quote.text}}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    </body>
+    </html>
