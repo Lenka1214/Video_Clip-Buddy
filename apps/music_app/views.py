@@ -17,7 +17,7 @@ def index(request):
         request.session['count']=0
     
     request.session['count']=request.session['count']+1
-    print("counter=", request.session['count'])
+
     context = {
         "message": '',
         "time": strftime("%Y-%m-%d %H:%M %p", gmtime()),
@@ -26,21 +26,19 @@ def index(request):
     return render(request,"music_app/index.html",context)
 def new_user(request):
 # NEW USER route: retrieves new user credentials from html and creates this user's record in USER DB'
-# ********placeholder : verification of new user credentials**********still TBD
+
 # retrieving new user infor from FORM, uploading new user in USER table:
     full_name=request.POST['full_name']
     nick_name=request.POST['nick_name']
     email=request.POST['email']
     password=request.POST['password']
     password1=request.POST['password1']
-    bday=request.POST['bday']
-    print(request.POST['full_name'],request.POST['nick_name'],request.POST['email'],
-    request.POST['password'],request.POST['password1'],request.POST['bday'])
+
 # check of new user credetials:
 # checks :  if password and password1 submitted by new user are the same
 #           if length of password is too short
 #           if user name is too short
-#           if email has valid format (still TBD:
+#           if email has valid format :
     if password!=password1:
         context = {
                 "message": 'your two passwords are not the same, re-enter:',
@@ -80,21 +78,18 @@ def new_user(request):
   
     User.objects.create(full_name=request.POST['full_name'],
         nick_name=request.POST['nick_name'],
-        email=request.POST['email'],password=request.POST['password'],
-        bday=request.POST['bday'])
-    print(User.objects.all())
+        email=request.POST['email'],password=request.POST['password'])
+
     return redirect('/index')
 
 def old_user(request):
 # retrieve old user email, password
 # retrieving of old user which is this_user
 # proceed to old user FAVOROTES page (to retrive info from DB and render):
-    print('this is old user start')
+
     email=request.POST['email']
     password=request.POST['password']
-# user_id=request.session['user_id']
-    print(email,password,request.session['user_id'])
-# this_user=User.objects.get(id=request.session['user_id'])
+
 # retrive existing (named OLD) user from users DB based on given email:
 # using FILTER instead of GET to preven ERROR:
     this_user=User.objects.filter(email=email)
@@ -116,9 +111,8 @@ def old_user(request):
 # retrive existing (old) user id and update session:
     request.session['user_id']=this_user[0].id
     user_nick=this_user[0].nick_name
-    print('this_user=', this_user, 'nick_name = ', user_nick)
-    print ('Quote.objects.all=',Quote.objects.all())
-# if there no (zero) quotes in the DB go to creation of the 1st quote, 
+
+# if there no (zero) quotes in the DB, go to creation of the 1st quote, 
 # otherwise proceed to the main page which is 'favorites':
     if Quote.objects.count()==0:
         context = {
@@ -126,7 +120,7 @@ def old_user(request):
         }       
         return render(request, "music_app/from_zero.html",context)  
     
-    print("nick_name to be retrieved:", this_user[0].nick_name)
+
     return redirect('/quotes')
 
 def quotes(request):
@@ -141,7 +135,7 @@ def quotes(request):
     'all_others':quote_others,
     
     }
-    print('user_id=', request.session['user_id'],'this_user=', this_user)
+
     # pass control to favorites.html which render the main page and allow current user
     # to move usual quotes to favorites or to move favorite quotes back to usual (other):
     return render(request,"music_app/favorites.html",context)
@@ -153,16 +147,14 @@ def from_zero(request):
     Quote.objects.create(quoted_by=request.POST['quoted_by'],text=request.POST['text'],created_by=User.objects.get(id=this_user))
     this_quote=Quote.objects.get(id=1)
     quote_others=Quote.objects.exclude(users_likers=User.objects.get(id=this_user))
-    print('1st quote=', this_quote, 'current user', this_user, 'non-favorite quotes=', quote_others)
+
     return redirect('/quotes')
 
-# below TBR:
+
 
 # new quote uploading:
 def new_quote(request):
-    # quoted_by=request.POST["quoted_by"]
-    # quote=request.POST['quote']
-    # created_by=request.POST['created_by']
+
     this_user=request.session['user_id']
     Quote.objects.create(quoted_by=request.POST['quoted_by'],
     text=request.POST['text'], created_by=User.objects.get(id=this_user))
@@ -174,7 +166,7 @@ def add_favorite(request,id):
     this_quote=Quote.objects.get(id=id)
     # quote_favors=this_quote.users_likers.add(id=id)
     quote_favors=this_user.favorites.add(this_quote)
-    print("*********favorites are: ", quote_favors )
+
     return redirect ('/quotes')
 
 # current user requested to move specic quote from favorites to usual/other quotes:

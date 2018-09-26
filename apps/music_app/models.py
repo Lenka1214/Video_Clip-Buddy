@@ -8,7 +8,7 @@ class User(models.Model):
     nick_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
-    bday=models.DateTimeField(auto_now_add = False)
+    # bday=models.DateTimeField(auto_now_add = False)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
 
