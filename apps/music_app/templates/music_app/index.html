@@ -1,6 +1,18 @@
 <!DOCTYPE html>
-  <html>
+<html>
+    {% load static %}
     <style>
+        .welcome{
+            color:greenyellow;
+            text-align: center;
+        }
+        .dialog{
+            color:blue;
+            height: 400px;
+            width: 950px;
+            margin-top:150px;
+            margin-left: 500px;
+        }
         .nice{
         color: aqua;
         background-color: blueviolet;   
@@ -9,78 +21,106 @@
         display: inline-block;
         vertical-align: top;
         width: 350px; 
-        /* background-color: aquamarine; */
+        margin-left: 0px;
+        margin-top: 470px;
         }
         .new{
         display: inline-block;
         vertical-align: top; 
-        width:350px;  
-        /* background-color: bisque; */
+        width:350px; 
+        margin-left: 150px;
+        margin-top: 440px;
         }
         body{
-            background-image: url("/static/img/Elbrus-saddle.jpg") no-repeat center center;
+            background: url("{% static 'img/Elbrus-saddle.jpg' %}") no-repeat center center;
             /* background-image: url("https://madisonmountaineering.com/elbrus-summit-photos-galore/") no-repeat center center 100%;     */
             background-size: cover;      
             /* background-color: aqua; */
         }
-        /* html, body{
-            width:100%;
-            height:100%;
-            margin:0px;
-        } */
+
     </style> 
     <head>
       <meta charset="utf-8">
       <title>Index!</title>
-      {% load static %}
-      <!-- The line above tells Django to be ready to listen for static files -->
-      <link rel="stylesheet" href="{% static 'ourApp/css/main.css' %}">
+
+      <!-- <link rel="stylesheet" href="{% static 'img/Elbrus-saddle.jpg' %}"> -->
       <!-- Put the static files in the static folder inside your app.  
            Django collects files within all static folders and puts them within a single folder -->    
     </head>
 <!-- existing user login or new user registration: -->
     <body>
-        <h3>{{message}}</h3>
-        <h3> Create and Enjoy Your Collection of weblinks to Your Favorite video clips!</h3>    
+        <div>
+            <div class="welcome">
+                <h2>{{message}}</h2>
+                <h2>Create and Enjoy Your Collection of weblinks to Your Favorite video clips!</h2>        
+                <h3>Current Date / Time : {{time}}</h3>
+                <h2>Fill and submit below Forms to register (new users) or login (valid users)</h2>
+                <p></p>
+            </div>
+            <div class="dialog">
+                <!-- existing / old users to log in: -->
+                <form class="old" action="/old_user" method='POST'>
+                    {% csrf_token %}                    
 
-        <h3>Current Date / Time : {{time}}</h3>
-        <h3>press button of your choice to register or login</h3>
-        <p></p>
-        <!-- existing / old users to log in: -->
-        <form class="old" action="/old_user" method='POST'>
-            {% csrf_token %}
-                <h3>Valid Users - Log In Here:</h3>
-                <label for="email">Your Email:</label>
-                <input type="text" name="email">
-                <p></p>
-                <label for="password">Your Password</label>
-                <input type="password" name="password">
-                <p></p>
-                <input class="nice" type='submit' value='Log In'>
-            </form>
-<!-- new users to register -->
-            <form class="new" action='/new_user' method='POST'>
-                {% csrf_token %}
-                <h3>New User Registration Form</h3>
-                <!-- <h3>Please fill below fields to use this app in future</h3> -->
-                <label for="full_name"> Your Full Name:</label>
-                <input type="text" name="full_name">
-                <p></p>
-                <label for="nick_name">Your Nick Name / Alias:</label>
-                <input type="text" name="nick_name">
-                <p></p>
-                <label for="email">Your Email:</label>
-                <input type="text" name="email">
-                <p></p>
-                <label for="password">Your Password</label>
-                <input type="password" name="password">
-                <p></p>
-                <label for="password">Repeat Password</label>
-                <input type="password" name="password1">
-                <p></p>
+                    <table width="350px" style="text-align:center">
+                            <caption><h3>Valid Users - Log In Here:</h3></caption>
+                            <tr>
+                                <td width="100px"><label for="email">Your Email:</label></td>
+                                <td width="100px"><input type="text" name="email"></td>
+                            </tr>
+                            <tr>
+                                <td width="100px"></td>
+                                <td width="100px"></td>	
+                            </tr>    
+                                <td width="100px"><label for="password">Your Password</label></td>
+                                <td width="100px"><input type="password" name="password"></td>	
+                            </tr>
+                            <tr>
+                                <td width="100px"></td>
+                                <td width="100px"><input class="nice" type='submit' value='Log In'></td>                                
+                            </tr>                            
+                    </table>         
+                   
+    
+                    <p></p>
+                </form>
+                <!-- new users to register -->
+                <form class="new" action='/new_user' method='POST'>
+                    {% csrf_token %}
+                    <table width="350px" style="text-align:center">
+                            <caption><h3>New User Registration Form:</h3></caption>
 
-                <input class="nice" type='submit' value='create user'>
-        </form>
+                            <tr>
+                                    <td width="100px"><label for="email">Your Full Name:</label></td>
+                                    <td width="100px"><input type="text" name="full_name"></td>
+                            </tr>
+                            <tr>
+                                    <td width="100px"><label for="email">Your Nick Name:</label></td>
+                                    <td width="100px"><input type="text" name="nick_name"></td>
+                            </tr>                                                         
+                            <tr>
+                                <td width="100px"><label for="email">Your Email:</label></td>
+                                <td width="100px"><input type="text" name="email"></td>
+                            </tr>
+                            <tr>
+                                <td width="100px"><label for="password">Your Password</label></td>
+                                <td width="100px"><input type="password" name="password"></td>	
+                            </tr>                     
+                            <tr>
+                                <td width="100px"><label for="password">Repeat Password</label></td>
+                                <td width="100px"><input type="password" name="password1"></td>	
+                            </tr>                            
+                            <tr>
+                                <td width="100px"></td>
+                                <td width="100px"><input class="nice" type='submit' value='Create User'></td>                                
+                            </tr>                            
+                    </table>		               
+                     
+                    <p></p>
+            </div>
+            <p></p>
+
+        </div>
 
     </body>
   </html>
