@@ -1,86 +1,101 @@
 <!DOCTYPE html>
 <html>
+		{% load static %}	
 <style>
 		/* .outer{
 		width: 405px;
 		border:blue;
 		border-style: dashed;
 		border-width: 3px
-		}
+		}*/
 		.nice{
-		color:blue;
-		background-color:gainsboro;
-		width: 400px;  
-		} */
-		.nice{
-        color: aqua;
-        background-color: blueviolet;
-		font-size: 25px;
-		display: inline-block;
-		vertical-align: top; 
-		margin-left: 300px; 
-		margin-top: 20px;
+			color: aqua;
+			background-color: blueviolet;
+			font-size: 25px;
+			margin-left: 730px; 
+			margin-top: 100px;
+			height: 20px;
         }
 		.welcome{
-		display: inline-block;
-		vertical-align: top;
-		width: 300px;
-		color:blue;   	
+			width: 600px;
+			color:blue;
+			text-align: center;
+			margin-left: 500px;	
+			margin-top: 10px;
+			height: 20px;
 		}
 		.other_quotes{
-		vertical-align: top;
-		display:inline-block;
-		width: 350px; 
-		/* background-color: aquamarine; */
-		color:blue;
-		margin-top: 30px;
+			vertical-align: top;
+			display:inline-block;
+			width: 300px; 
+			color:blue;
+			margin-top: 20px;
+			margin-left: 350px;
+			height: 200px;
 		}
 		.favor_quotes{
-		display: inline-block;
-		vertical-align: top; 
-		width:350px;  
-		/* background-color: aquamarine; */
-		color:blue;
-		margin-left: 70px;
-		margin-top: 30px;
+			display: inline-block;
+			vertical-align: top; 
+			width:300px;  
+			color:blue;
+			margin-left: 230px;
+			margin-top: 20px;
+			height: 200px;
 		}
 		.head1{
 			width: 100px;
 			vertical-align: top;
 			display: inline-block;
-			height: 20px;
-			color:blue;		
+			height: 10px;
+			color:blue;	
+			margin-left: 400px;	
 		}
 		.head2{
 			width: 100px;
-			height: 20px;
+			height: 10px;
 			vertical-align: top;
 			display: inline-block;
-			margin-left: 120px;
+			margin-left: 250px;
 			color:blue;
 		}
 		.add{
 			color:blue;
+			margin-left: 660px;
+		}
+		.newq{
+			margin-left: 680px;
+			font-size: 15px;
+			color: blue;
+		}
+		.button{
+			color: aqua;
+			background-color: blueviolet;
+			font-size: 15px;
+			margin-left: 50px;			
+		}
+        body{
+            background: url("{% static 'img/Kam-heli1.jpg' %}") no-repeat center center;
+            background-size: contain;      
+        }
 
-		}	
 </style>
 <head>
 	<title>Quotes</title>
 </head>
 <body>
 	<div>
-		<h1 class="welcome">Welcome, {{nick_name}}!</h1>
+		<h1 class="welcome">Welcome, {{nick_name}}, enjoy your video clips !</h1>
 		<a class="nice" href="/logout">Logout</a>
 	</div>
 
 	<!-- Current User Other Quotes -->
 	<div>
-		<h3 class="head1" style="border:1px blue dashed; width:300px">All Clips:</h3>
-		<h3 class="head2" style="border:1px blue dashed; width:300px">Favorite Clips:</h3>		
+		<h3 class="head1" style="width:300px">All Clips:</h3>
+		<h3 class="head2" style="width:300px">Favorite Clips:</h3>		
 	</div>
-	<div class="other_quotes" id="quotes" style="overflow:scroll; height:500px;">
+	<div class="other_quotes" id="quotes" style="overflow:scroll; height:350px;">
 		{% for quote in all_others %}
-			<div class = "one_quote" style="border: 1px blue dashed; width: 350px">
+			<div class = "one_quote" style="border: 1px blue dashed; width: 300px">
 				<p><a href="{{quote.text}}">{{quote.quoted_by}}</a></p>
 
 				<p>posted by:<a href="/user_selected/{{quote.created_by.id}}">{{quote.created_by.full_name}}</a></p>
@@ -91,7 +106,7 @@
 
 <!-- Current User Favorite Quotes -->
 
-	<div class="favor_quotes" id="quotes" style="overflow:scroll; height:500px;">
+	<div class="favor_quotes" id="quotes" style="overflow:scroll; height:350px;">
 	  {% for favorite in favorites %}
 	  		<div class="one_quote" style="border: 1px blue dashed; width: 350px">
 			    <p><a href="{{favorite.text}}">{{favorite.quoted_by}}</a></p>
@@ -103,14 +118,14 @@
 	 </div>
 
 <!-- submit new quote: -->
-	<h3 class="add">Submit new Quote:</h3> 
-	<form action="/new_quote" method="post">
+	<h2 class="add">Submit new Weblink:</h2> 
+	<form class="newq" action="/new_quote" method="post">
 	{% csrf_token %}
-		<label>Quoted By:</label>
-		<input type="text" name="quoted_by">
-		<label>Quote text:</label>
-		<textarea name="text"></textarea>
-		<input type="submit" value="Submit">
+		<label>Author of Clip:</label><br>
+		<input type="text" name="quoted_by"><br>
+		<label>Weblink:</label><br>
+		<textarea name="text"></textarea><br>
+		<input class="button" type="submit" value="Submit"><br>
 	</form>
 </body>
 </html>

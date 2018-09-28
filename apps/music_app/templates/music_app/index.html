@@ -5,13 +5,16 @@
         .welcome{
             color:greenyellow;
             text-align: center;
+            height: 100px;
+            vertical-align: top;
         }
         .dialog{
             color:blue;
             height: 400px;
             width: 950px;
-            margin-top:150px;
-            margin-left: 500px;
+            margin-top:300px;
+            margin-left: 250px;
+            vertical-align: top;
         }
         .nice{
         color: aqua;
@@ -21,21 +24,19 @@
         display: inline-block;
         vertical-align: top;
         width: 350px; 
-        margin-left: 0px;
-        margin-top: 470px;
+        margin-left: 50px;
+        margin-top: 120px;
         }
         .new{
         display: inline-block;
         vertical-align: top; 
         width:350px; 
         margin-left: 150px;
-        margin-top: 440px;
+        margin-top: 90px;
         }
         body{
-            background: url("{% static 'img/Elbrus-saddle.jpg' %}") no-repeat center center;
-            /* background-image: url("https://madisonmountaineering.com/elbrus-summit-photos-galore/") no-repeat center center 100%;     */
-            background-size: cover;      
-            /* background-color: aqua; */
+            background: white url("{% static 'img/Elbrus-saddle.jpg' %}") no-repeat center center;
+            background-size: contain;
         }
 
     </style> 
@@ -43,13 +44,12 @@
       <meta charset="utf-8">
       <title>Index!</title>
 
-      <!-- <link rel="stylesheet" href="{% static 'img/Elbrus-saddle.jpg' %}"> -->
       <!-- Put the static files in the static folder inside your app.  
            Django collects files within all static folders and puts them within a single folder -->    
     </head>
 <!-- existing user login or new user registration: -->
     <body>
-        <div>
+        <div class="outer">
             <div class="welcome">
                 <h2>{{message}}</h2>
                 <h2>Create and Enjoy Your Collection of weblinks to Your Favorite video clips!</h2>        
